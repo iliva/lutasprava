@@ -1,0 +1,131 @@
+<a href="/shop" class="badge badge-inverse">
+	<i class="glyphicon glyphicon-hand-left"></i>&nbsp;&nbsp;&nbsp;
+	Магазин
+</a>
+<hr>
+
+<div ng-show="orderSent" class="alert alert-success">
+	<i class="glyphicon glyphicon-send"></i>&nbsp;&nbsp;&nbsp; 
+	Дякуємо за замовлення! Наші менеджери зв'яжуться з Вами найближчим часом.
+</div>
+
+<div class="alert alert-default" ng-show="cart.total == 0 && !orderSent">
+	<i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;&nbsp;&nbsp;  
+	Товарів у кошику немає
+</div>
+
+<div ng-show="cart.total > 0" class="row">
+	
+	<div class="col-md-6 col-sm-10">
+		<h2>Кошик</h2>
+		<div class="jumbotron">
+		<table  class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>назва</th>
+					<th>ціна</th>
+					<th>шт</th>
+					<th>сума</th>
+					<th></th>		
+				</tr>
+			<thead>
+			<tbody>
+				<tr ng-repeat="product in cart.products">
+					<td>{{product.category_name}} {{product.name}} {{product.selectedSize}}</td>
+					<td>{{product.price}} UAH</td>
+					<td>{{product.qnty}}</td>
+					<td>{{product.price * product.qnty}} грн</td>
+					<td><a href="" ng-click="deleteCartItem(product.id, product.selectedSize)">
+						<i class="glyphicon glyphicon-remove"></i>
+					</a></td>
+				</tr>
+				<tr>
+					<td colspan="5">Всього: {{cart.total}} грн</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		
+	</div>
+	<div class="col-md-6 col-sm-10">
+		<hr class="hidden-sm visible-xs">
+		<h2>Оформити замовлення</h2>
+		<div class="jumbotron">
+		<div ng-show="orderError" class="alert alert-danger">
+			<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;&nbsp;&nbsp;  
+			Виникла помилка.
+		</div>
+		<div ng-show="orderFillError" class="alert alert-danger">
+			<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;&nbsp;&nbsp;  
+			Поля заповнені не коректно
+		</div>
+		
+		<form name="order" class="form-horizontal" ng-submit="formSubmit()" novalidate >
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Ім'я*</label>
+				<div class="col-sm-10">
+
+					<input name="name" id="name" type="text" class="form-control" ng-model="user.name" ng-minlength="3" ng-maxlength="30" required data-toggle="tooltip" >
+					<!-- ng-pattern="/^[А-яЁёіІїЇ]+$/i"  -->
+					
+					<div class="tooltip bottom" ng-show="order.name.$dirty && (order.name.$error.required || order.name.$error.minlength || order.name.$error.maxlength)">
+					  <div class="tooltip-arrow"></div>
+					  <div class="tooltip-inner">
+							<span ng-show="order.name.$error.required">Обов'язково для заповнення</span>
+							<span ng-show="order.name.$error.minlength">Занадто коротке ім'я</span>
+							<span ng-show="order.name.$error.maxlength">Занадто довге ім'я</span>
+					  </div>
+					</div>
+				
+				</div>
+			</div>		
+			<div class="form-group">
+				<label for="email" class="col-sm-2 control-label">E-mail*</label>
+				<div class="col-sm-10">
+					<input name="email" id="email" type="email" class="form-control" ng-model="user.email" required >
+					
+					<div class="tooltip bottom" ng-show="order.email.$dirty && (order.email.$error.required || order.email.$error.email)">
+					  <div class="tooltip-arrow"></div>
+					  <div class="tooltip-inner">
+							<span ng-show="order.email.$error.required">Обов'язково для заповнення</span>
+							<span ng-show="order.email.$error.email">Некоректна адреса</span>
+					  </div>
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="phone" class="col-sm-2 control-label">Телефон*</label>
+				<div class="col-sm-10">
+					<input type="phone" id="phone" name="phone" class="form-control" ng-model="user.phone" required ng-minlength="7" ng-maxlength="20" ng-pattern="/^[-\s\.0-9()+]+$/i">
+					
+					<div class="tooltip bottom" ng-show="order.phone.$dirty && (order.phone.$error.required || order.phone.$error.pattern || order.phone.$error.minlength || order.phone.$error.maxlength)">
+					  <div class="tooltip-arrow"></div>
+					  <div class="tooltip-inner">
+							<span ng-show="order.phone.$error.required">Обов'язково для заповнення</span>
+							<span ng-show="order.phone.$error.pattern">Некоректный номер телефону</span>
+							<span ng-show="order.phone.$error.minlength && !order.phone.$error.pattern">Занадто короткий номер</span>
+							<span ng-show="order.phone.$error.maxlength && !order.phone.$error.pattern">Занадто довгий номер</span>
+					  </div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<span class="help-block">* Поля обов'язкові для заповнення</span>
+				</div>
+			</div>	
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button class="btn btn-default" ng-disabled="order.$invalid">
+						<span ng-show="!orderProcessing">Відправити</span>
+						<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-show="orderProcessing"></span> 
+						<span ng-show="orderProcessing">nbsp;nbsp;Відправлення...</span>
+					</button>
+				</div>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>		
+		

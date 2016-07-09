@@ -1,0 +1,79 @@
+	
+<div class="row">
+	<aside>
+		<div class="col-sm-3 col-xs-5">
+			<!-- search -->
+
+			<div class="input-group">
+			  <span class="input-group-btn">
+				<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+			  </span>
+			  <input type="search" ng-model="productSearch" placeholder="Пошук..." class="form-control">
+			</div>
+			
+		   <hr>	
+			<!-- categories -->
+			<ul class="nav nav-pills nav-stacked">
+				<li ng-click="ResetCategories()" ng-class="{active: !chosenCategory}">
+					<a href="">
+						Всі категорії 
+						<span class="badge">
+							{{products | filter:productSearch | numberInCategory:0:chosenSize}}
+						</span>
+					</a>
+				</li>
+				<li ng-repeat="item in products | unique:'category_name'" ng-click="ChooseCategory(item.category_id)" ng-class="{active: chosenCategory == item.category_id}">
+					<a href="">
+						{{item.category_name}} 
+						<span class="badge">
+							{{products | filter:productSearch | numberInCategory:item.category_id:chosenSize}}
+						</span>
+					</a>
+				</li>
+			</ul>
+			<hr>
+			<!-- sizes -->
+			<ul class="nav nav-pills nav-stacked">
+				<li ng-click="ResetSizes()" ng-class="{active: !chosenSize}">
+					<a href="">
+						Всі розміри 
+						<span class="badge">
+							{{products | filter:productSearch | numberWithSize:0:chosenCategory}}
+						</span>
+					</a>
+				</li>
+				<li ng-repeat="item in sizes" ng-click="ChooseSize(item)" ng-class="{active: chosenSize == item}">
+					<a href="">
+						{{item}}
+						<span class="badge">
+							{{products | filter:productSearch | numberWithSize:item:chosenCategory}}
+						</span>
+					</a>
+				</li>
+			</ul>	
+		</div>
+	</aside>
+
+	
+	<div class="col-sm-9 col-xs-7 products_list">
+		<figure ng-repeat="item in products | filter:productSearch | filter:ProductShow " class="col-xs-12 col-sm-6 col-md-4">
+			<a ng-href="/product/{{item.id}}" >
+				<img ng-src="/img/products/small/{{item.image}}" class="img-responsive center-block" />
+			</a>	
+			<figcaption class="text-center panel panel-default" >	
+				<div class="panel-heading">{{item.category_name}} {{item.name}}</div>
+				<div class="panel-body">
+					<p>
+						<span ng-repeat="sz in item.size track by $index" >
+							<span class="badge">{{sz.name}}</span>
+							<span ng-show="$index < item.size.length-1">&nbsp;</span>
+						</span> 
+					</p>
+					<p>
+						<span class="badge">{{item.price}} грн</span>&nbsp;
+					</p>
+				</div>
+			</figcaption>
+		</figure>
+	</div>
+</div>

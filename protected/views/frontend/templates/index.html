@@ -1,0 +1,41 @@
+
+<div style="width: 250px; float: left">
+	<!-- search -->
+	<input type="search" ng-model="productSearch" placeholder="search">
+	<hr>
+	<!-- categories -->
+	<ul>
+		<li ng-click="ResetCategories()" class="item" ng-class="{selected: !chosenCategory}">Все категории</li>
+		<li ng-repeat="item in products | unique:'category_name'" class="item" ng-click="ChooseCategory(item.category_id)" ng-class="{selected: chosenCategory == item.category_id}">
+			{{item.category_name}}
+		</li>
+	</ul>
+	<hr>
+	<!-- sizes -->
+	<ul>
+		<li ng-click="ResetSizes()" class="item" ng-class="{selected: !chosenSize}">Все размеры</li>
+		<li ng-repeat="item in sizes" class="item" ng-click="ChooseSize(item)" ng-class="{selected: chosenSize == item}">
+			{{item}}
+		</li>
+	</ul>
+	<hr>	
+</div>
+
+
+<div style="width: 400px; float: left">
+	<div ng-repeat="item in products | filter:productSearch" style="clear: both;" ng-show="ProductShow(item)">
+		<a ng-href="/product/{{item.id}}" class="link">
+			<img ng-src="/img/products/small/{{item.image}}" />
+		</a>	
+		<div style="display: inline-block; float: left;">	
+			<p>{{item.category_name}} {{item.name}}</p>
+			<p>
+				<span ng-repeat="sz in item.size track by $index">
+					{{sz.name}}<span ng-show="$index < item.size.length-1">, </span>
+				</span> 
+			</p>
+			<p>{{item.price}} UAH</p>
+		
+		</div>
+	</div>
+</div>

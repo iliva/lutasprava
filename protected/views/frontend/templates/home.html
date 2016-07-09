@@ -1,0 +1,58 @@
+
+    <!-- row 2: banner -->
+	<div id="banner" class="carousel slide" data-ride="carousel" data-interval="7000">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			
+		<li data-target="#banner" ng-repeat="item in banner track by $index" data-slide-to="{{$index}}" ng-class="{'active': $index == 0}"></li>
+			
+		</ol>
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner">
+			<div ng-repeat="item in banner track by $index"  class="item" ng-class="{'active': $index == 0}">
+				<img ng-src="/img/banner/{{item}}" alt="Хлопцям багато футболок не буває" >
+			</div>	  	 
+		</div>
+		<!-- Controls -->
+		<a class="left carousel-control" data-target="#banner" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<a class="right carousel-control" data-target="#banner" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</div>	
+
+    
+	<!-- text 1 -->
+	<home-text id="terms" position="1" title="Умови акції" logo="/img/logo1.png">
+		<p>Якщо ви придбаєте одну футболку — таку саму отримає солдат Збройних сил або Національної гвардії України. До футболки можна буде додати листівку із добрими словами та зазначити свою адресу (мейл, телефон), якщо захочете, щоб воїн вам відповів. Можна передати й інші подарунки — листи, малюнки, книжки. Це все для того, аби створити справжнє спілкування, що морально підтримає нашого солдата. Щоби передати їх нам, телефонуйте за контактними номерами.</p>
+		<p>Передачу футболок організуємо самостійно, але будемо вдячні за контакти частин, що мають першочергову необхідність у підтримці. Також ми готові співпрацювати з волонтерами, що доставляють найнеобхідніше у місця розташування військових.</p>	
+	</home-text>
+	
+	<!-- text 2 -->
+	<home-text id="mission" position="0" title="Місія" logo="/img/logo2.png">
+		<p>Це, звичайно, не броніки і не тепловізори. Це — найменше і напростіше, що ми могли б зробити. Ми не називаємо це благодійництвом і не збираємо гроші. Наші футболки не є елементом військового однострою. Але нехай солдату буде в що перевдягнутись або відпочити не в уніформі. Та й нам, хто придбав собі таку футболку, приємно буде зустріти людину, яка так само, як і ми, долучилася до справи. Нас, тих, хто не на передовій, це теж має об'єднувати.</p>	
+	</home-text>
+
+	<!-- text 3 -->
+	<home-text id="sizes" position="1" title="Оберіть розміри" logo="/img/logo1.png">
+		<p>Майже завжди ми маємо такі розміри:</p>
+		<img src="/img/size.png" class="center-block img-responsive" />
+		<p><br>Дівчайта й підлітки беруть собі зазвичай «S»,<br> 
+		жваві хлопці середньої статури замовляють «M», <br>
+		чоловіки до 90 кг — «L», <br>
+		а дядьки, більші від інших, носять «XL». <br>
+		Зовсім люті чоловіки потягнуть на «XXL». 
+		<br>Рідко, але буває розмір «XXXL».</p>
+		<p>Іноді ви не зможете вибрати необхідний розмір або колір. Це означає, що саме такі футболки закінчилися. Ми постійно поновлюємо наш склад, отже вам потрібно буде зайти на наш сайт через декілька днів.</p>	
+	</home-text>
+
+	<!-- text 4 -->
+	<home-text id="payment" position="0" title="Оплата і доставка" logo="/img/logo2.png">
+		<p>Ми користуємося послугами «Нової пошти». Вантаж доставляється у найближче до вас відділення «Нової пошти», вказане вами у формі замовлення, терміном від 2 до 4 днів без урахування вихідних. Послуги доставки сплачує одержувач.</p>	
+	</home-text>	
+	
+	
+	<div class="row text-center">
+		<a href="shop" class="shop_btn btn btn-default btn-lg ">Замовити</a>
+	</div>
