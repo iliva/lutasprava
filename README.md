@@ -1,3 +1,3 @@
 # LUTA SPRAVA
 online shop<br>
-<a href="http://lutasprava.lirk.in.ua/">lutasprava.lirk.in.ua</a>
+<a href="http://www.lutasprava.ileft.s-host.net/">lutasprava.ileft.s-host.net</a>
